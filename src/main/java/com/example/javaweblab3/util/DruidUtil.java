@@ -16,8 +16,10 @@ public class DruidUtil {
     static {
         try {
             Properties prop = new Properties();
-            InputStream is = DruidUtil.class.getClassLoader().getResourceAsStream("druid.properties");
-            prop.load(is);
+            prop.setProperty("driverClassName", "com.mysql.cj.jdbc.Driver");
+            prop.setProperty("url", "jdbc:mysql://localhost:3306/javaweb_lab3?characterEncoding=UTF8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
+            prop.setProperty("username", "root");
+            prop.setProperty("password", "123456");
             ds = (DruidDataSource) DruidDataSourceFactory.createDataSource(prop);
         } catch (Exception e) {
             e.printStackTrace();
