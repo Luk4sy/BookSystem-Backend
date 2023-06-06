@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class BorrowRecord {
     private int id;
-    private int userId;
-    private int bookId;
+    private User user;
+    private Book book;
     private Date borrowDate;
     private Date returnDate;
     private Date dueDate;
@@ -13,18 +13,10 @@ public class BorrowRecord {
     public BorrowRecord() {
     }
 
-    public BorrowRecord(int id, int userId, int bookId, Date borrowDate, Date returnDate, Date dueDate) {
+    public BorrowRecord(int id, User user, Book book, Date borrowDate, Date returnDate, Date dueDate) {
         this.id = id;
-        this.userId = userId;
-        this.bookId = bookId;
-        this.borrowDate = borrowDate;
-        this.returnDate = returnDate;
-        this.dueDate = dueDate;
-    }
-
-    public BorrowRecord(int userId, int bookId, Date borrowDate, Date returnDate, Date dueDate) {
-        this.userId = userId;
-        this.bookId = bookId;
+        this.user = user;
+        this.book = book;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
         this.dueDate = dueDate;
@@ -38,20 +30,20 @@ public class BorrowRecord {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getBookId() {
-        return bookId;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public Date getBorrowDate() {
@@ -77,4 +69,14 @@ public class BorrowRecord {
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
+
+    public BorrowRecord(User user, Book book, Date borrowDate, Date returnDate, Date dueDate) {
+        this.user = user;
+        this.book = book;
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
+        this.dueDate = dueDate;
+    }
+
+
 }

@@ -13,7 +13,6 @@ public class UserDaoImp implements UserDao {
     Connection conn = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
-    User user = null;
 
     @Override
     public User userLogin(String username, String password) throws Exception {
@@ -21,8 +20,11 @@ public class UserDaoImp implements UserDao {
         conn = DruidUtil.getConnection();
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, username);
+        System.out.println(username);
         pstmt.setString(2, password);
+        System.out.println(password);
         rs = pstmt.executeQuery();
+        User user = null;
 
         if (rs.next()) {
             user = new User();
@@ -30,6 +32,7 @@ public class UserDaoImp implements UserDao {
             user.setUsername(rs.getString("username"));
             user.setPassword(rs.getString("password"));
             user.setRole(rs.getString("role"));
+            System.out.println("add!!!!");
         }
 
         DruidUtil.close(conn, pstmt, rs);

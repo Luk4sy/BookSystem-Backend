@@ -43,6 +43,7 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
         response.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -58,10 +59,16 @@ public class LoginServlet extends HttpServlet {
             authenticatedUser = userService.userLogin(user.getUsername(), user.getPassword());
             System.out.println(authenticatedUser);
             System.out.println("登录验证成功");
+            //session中存入user的id
+            HttpSession session = request.getSession();
+            session.setAttribute("userId", authenticatedUser.getId());
+            System.out.println(session.getId());
+            System.out.println(session.getAttribute("userId"));
         } catch (Exception e) {
             e.printStackTrace();
             throw new ServletException("登录失败", e);
         }
+
 
         //创建响应数据
         Map<String, Object> responseData = new HashMap<>();
