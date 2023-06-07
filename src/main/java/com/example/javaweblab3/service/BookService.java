@@ -20,4 +20,8 @@ public class BookService {
     public void updateBookStatus(int bookId, String status) throws Exception {
         bookDao.updateBookStatus(bookId, status);
     }
+
+    public void addBook(Book book) throws Exception {
+        bookDao.addBook(book);
+    }
 }

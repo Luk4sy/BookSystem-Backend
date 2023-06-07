@@ -85,5 +85,36 @@ public class BorrowRecordDaoImp implements BorrowRecordDao {
         return records;
     }
 
+    @Override
+    public boolean returnBook(int recordId) throws Exception {
+        String sql = "UPDATE borrowRecord SET due_date = ? WHERE id = ?";
+        String sql2 = "SELECT book_id FROM borrowRecord WHERE id = ?";
+        String sql3 = "UPDATE book SET status = '可借阅' WHERE id = ?";
+        conn = DruidUtil.getConnection();
+        pstmt = conn.prepareStatement(sql);
+        // 将 due_date 设置为当前日期
+        pstmt.setDate(1, new java.sql.Date(System.currentTimeMillis()));
+        pstmt.setInt(2, recordId);
+
+        int affectedRows = pstmt.executeUpdate();
+
+        pstmt = conn.prepareStatement(sql2);
+        pstmt.setInt(1, recordId);
+        rs = pstmt.executeQuery();
+        if (rs.next()) {
+            int bookId = rs.getInt("book_id");
+            pstmt = conn.prepareStatement(sql3);
+            pstmt.setInt(1, bookId);
+            pstmt.executeUpdate();
+        }
+
+
+
+        DruidUtil.close(conn, pstmt, rs);
+
+        // 如果受影响的行数大于0，说明更新成功
+        return affectedRows > 0;
+    }
+
 
 }

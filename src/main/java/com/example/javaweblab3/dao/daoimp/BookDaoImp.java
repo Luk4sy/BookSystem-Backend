@@ -48,4 +48,18 @@ public class BookDaoImp implements BookDao {
         pstmt.executeUpdate();
         DruidUtil.close(conn, pstmt);
     }
+
+    @Override
+    public void addBook(Book book) throws Exception {
+        String sql = "INSERT INTO book (title, author, isbn, shelf_number, status) VALUES (?, ?, ?, ?, ?)";
+        conn = DruidUtil.getConnection();
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, book.getTitle());
+        pstmt.setString(2, book.getAuthor());
+        pstmt.setString(3, book.getIsbn());
+        pstmt.setString(4, book.getShelfNumber());
+        pstmt.setString(5, book.getStatus());
+        pstmt.executeUpdate();
+        DruidUtil.close(conn, pstmt);
+    }
 }

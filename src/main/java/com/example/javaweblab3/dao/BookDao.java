@@ -14,10 +14,16 @@ public interface BookDao {
     public List<Book> getAllBooks() throws Exception;
 
     /**
-     *
      * @param bookId 书籍id
      * @param status 书的状态
      * @throws Exception 抛出异常
      */
     void updateBookStatus(int bookId, String status) throws Exception;
+
+    /**
+     *
+     * @param book 书籍
+     * @throws Exception 抛出异常
+     */
+    void addBook(Book book) throws Exception;
 }

@@ -20,4 +20,8 @@ public class BorrowRecordService {
     public List<BorrowRecord> getRecordByUserId(int userId) throws Exception {
         return this.borrowRecordDao.getRecordByUserId(userId);
     }
+
+    public boolean returnBook(int recordId) throws Exception {
+        return this.borrowRecordDao.returnBook(recordId);
+    }
 }
