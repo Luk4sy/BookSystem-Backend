@@ -107,13 +107,29 @@ public class BorrowRecordDaoImp implements BorrowRecordDao {
             pstmt.setInt(1, bookId);
             pstmt.executeUpdate();
         }
-
-
-
         DruidUtil.close(conn, pstmt, rs);
 
         // 如果受影响的行数大于0，说明更新成功
         return affectedRows > 0;
+    }
+
+    @Override
+    public void addRecord(int userId, int bookId, Date date) throws Exception {
+        String sql = "INSERT INTO borrowrecord (user_id,book_id,borrow_date,return_date) VALUES (?,?,?,?)";
+        String sql2 = "UPDATE book SET status = '已借出' WHERE id = ?";
+        conn = DruidUtil.getConnection();
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, userId);
+        pstmt.setInt(2, bookId);
+        pstmt.setDate(3, new java.sql.Date(System.currentTimeMillis())); // current date as borrow date
+        pstmt.setDate(4, new java.sql.Date(date.getTime())); // due date from the frontend
+        pstmt.executeUpdate();
+
+        pstmt = conn.prepareStatement(sql2);
+        pstmt.setInt(1, bookId);
+        pstmt.executeUpdate();
+
+        DruidUtil.close(conn, pstmt, rs);
     }
 
 

@@ -4,6 +4,7 @@ import com.example.javaweblab3.dao.BorrowRecordDao;
 import com.example.javaweblab3.entity.BorrowRecord;
 import com.example.javaweblab3.factory.DAOFactory;
 
+import java.util.Date;
 import java.util.List;
 
 public class BorrowRecordService {
@@ -23,5 +24,9 @@ public class BorrowRecordService {
 
     public boolean returnBook(int recordId) throws Exception {
         return this.borrowRecordDao.returnBook(recordId);
+    }
+
+    public void addRecord(int userId, int bookId, Date date) throws Exception {
+        this.borrowRecordDao.addRecord(userId, bookId, date);
     }
 }
